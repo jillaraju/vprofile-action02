@@ -27,9 +27,13 @@ jobs:
           sonar-scanner \
             -Dsonar.host.url=${{ secrets.SONAR_URL }} \
             -Dsonar.token=${{ secrets.SONAR_TOKEN }} \
+<<<<<<< HEAD
             -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }} \
             -Dsonar.sources=src/main/java \
             -Dsonar.java.binaries=target/classes
+=======
+            -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }}
+>>>>>>> bafcd03f252e66d360b0313a3598aae66d7267e7
 
       - name: SonarQube Quality Gate
         uses: sonarsource/sonarqube-quality-gate-action@master
