@@ -22,15 +22,8 @@ jobs:
           distribution: temurin
           java-version: '11'
 
-      - name: Run Maven tests
-        run: mvn clean test
-
-      # ✅ FIXED STEP (IMPORTANT)
-      - name: Run Checkstyle via Maven lifecycle
-        run: mvn clean validate
-
-      - name: Build project
-        run: mvn package
+      - name: Build + Test + Checkstyle
+        run: mvn clean package
 
       - name: Setup Sonar Scanner
         uses: warchant/setup-sonar-scanner@v7
