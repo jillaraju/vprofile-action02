@@ -168,15 +168,20 @@
      <build>
     <plugins>
 
-        <!-- Checkstyle Plugin -->
+        <!-- Checkstyle Plugin (FIXED) -->
         <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-checkstyle-plugin</artifactId>
             <version>3.3.0</version>
 
             <configuration>
-                <configLocation>google_checks.xml</configLocation>
+                <!-- IMPORTANT FIX -->
+                <configLocation>https://checkstyle.org/google_style.xml</configLocation>
+
+                <!-- Do NOT fail build -->
                 <failOnViolation>false</failOnViolation>
+
+                <!-- Required for Sonar -->
                 <outputFile>target/checkstyle-result.xml</outputFile>
                 <outputFileFormat>xml</outputFileFormat>
             </configuration>
@@ -186,6 +191,26 @@
                     <phase>validate</phase>
                     <goals>
                         <goal>checkstyle</goal>
+                    </goals>
+                </execution>
+            </executions>
+        </plugin>
+
+        <!-- JaCoCo (keep yours if already present) -->
+        <plugin>
+            <groupId>org.jacoco</groupId>
+            <artifactId>jacoco-maven-plugin</artifactId>
+            <version>0.8.4</version>
+            <executions>
+                <execution>
+                    <goals>
+                        <goal>prepare-agent</goal>
+                    </goals>
+                </execution>
+                <execution>
+                    <phase>test</phase>
+                    <goals>
+                        <goal>report</goal>
                     </goals>
                 </execution>
             </executions>
