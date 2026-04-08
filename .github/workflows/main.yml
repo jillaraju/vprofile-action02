@@ -25,8 +25,9 @@ jobs:
       - name: Run Maven tests
         run: mvn clean test
 
-      - name: Run Checkstyle
-        run: mvn checkstyle:checkstyle
+      # ✅ FIXED STEP (IMPORTANT)
+      - name: Run Checkstyle via Maven lifecycle
+        run: mvn clean validate
 
       - name: Build project
         run: mvn package
@@ -44,7 +45,8 @@ jobs:
             -Dsonar.sources=src/ \
             -Dsonar.junit.reportsPath=target/surefire-reports/ \
             -Dsonar.java.checkstyle.reportPaths=target/checkstyle-result.xml \
-            -Dsonar.java.binaries=target/classes
+            -Dsonar.java.binaries=target/classes \
+            -Dsonar.qualitygate.wait=false   # optional but recommended
 
       - name: SonarQube Quality Gate
         uses: sonarsource/sonarqube-quality-gate-action@master
